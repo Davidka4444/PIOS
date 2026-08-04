@@ -13,7 +13,7 @@ for _, module in ipairs(metadata.modules) do
     PIOS.logger("Загрузка: " .. PIOS.theme.accent .. module, "DEBUG")
     local moduleCode = PIOS.httpGet("github.com",
         "/Davidka4444/PIOS/raw/refs/heads/main/" .. metadata.tree.modules .. "/" .. module,
-        80)
+        443)
     modules[module] = moduleCode
 end
 
@@ -23,7 +23,7 @@ for part = 1, metadata.tree.firmwarePartsTotal do
     local partFormatted = string.format(metadata.tree.partTemplate, string.format(metadata.tree.partsFormat, part))
 
     local partString = PIOS.httpGet("github.com",
-        "/Davidka4444/PIOS/raw/refs/heads/main/" .. metadata.tree.firmwareParts .. "/" .. partFormatted, 80)
+        "/Davidka4444/PIOS/raw/refs/heads/main/" .. metadata.tree.firmwareParts .. "/" .. partFormatted, 443)
     PIOS.logger(
         "Загружена часть " ..
         PIOS.theme.accent .. part .. "/" .. metadata.tree.firmwarePartsTotal .. PIOS.theme.foreground .. " ()", "DEBUG")

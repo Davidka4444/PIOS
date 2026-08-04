@@ -8,6 +8,7 @@
     "modules": "modules",
     "partsFormat": "%03d",
     "firmwarePartsTotal": 11,
+    "updateScript": "update.lua",
     "partTemplate": "part%s.lua"
   }
 }
