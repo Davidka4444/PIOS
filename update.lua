@@ -11,7 +11,9 @@ PIOS.logger("1) Скачивание модулей", "INFO")
 local modules = {}
 for _, module in ipairs(metadata.modules) do
     PIOS.logger("Загрузка: " .. PIOS.theme.accent .. module, "DEBUG")
-    local moduleCode = PIOS.httpGet("127.0.0.1", "/" .. metadata.tree.modules .. "/" .. module, 8000)
+    local moduleCode = PIOS.httpGet("github.com",
+        "/Davidka4444/PIOS/raw/refs/heads/main/" .. metadata.tree.modules .. "/" .. module,
+        80)
     modules[module] = moduleCode
 end
 
@@ -20,8 +22,12 @@ local parts = {}
 for part = 1, metadata.tree.firmwarePartsTotal do
     local partFormatted = string.format(metadata.tree.partTemplate, string.format(metadata.tree.partsFormat, part))
 
-    PIOS.logger("Загрузка части " .. PIOS.theme.accent .. part .. "/" .. metadata.tree.firmwarePartsTotal, "DEBUG")
-    table.insert(parts, PIOS.httpGet("127.0.0.1", "/" .. metadata.tree.firmwareParts .. "/" .. partFormatted, 8000))
+    local partString = PIOS.httpGet("github.com",
+        "/Davidka4444/PIOS/raw/refs/heads/main/" .. metadata.tree.firmwareParts .. "/" .. partFormatted, 80)
+    PIOS.logger(
+        "Загружена часть " ..
+        PIOS.theme.accent .. part .. "/" .. metadata.tree.firmwarePartsTotal .. PIOS.theme.foreground .. " ()", "DEBUG")
+    table.insert(parts, partString)
 end
 
 local firmware = ""
